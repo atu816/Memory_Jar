@@ -13,7 +13,7 @@ module.exports = {
       directory: path.resolve(__dirname, 'build')
     },
     proxy: {
-      '/api': 'http://localhost:3000'
+      '/': 'http://localhost:3000'
     },
   },
   mode: process.env.NODE_ENV,

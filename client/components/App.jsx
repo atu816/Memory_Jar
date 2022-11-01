@@ -22,6 +22,7 @@ class App extends Component {
       <div>
         <h1>Hello Bitches</h1>
         {testArr}
+        <p>Log one, I am not feeling great but doing my best</p>
       </div>
     )
   }
