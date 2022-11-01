@@ -7,17 +7,15 @@ const dbRouter = require('./routes/router.js');
 
 // Parse everything coming in as json (Important for POST/PUT where data is coming in)
 app.use(express.json());
-
 app.use(express.urlencoded({extended: true}));
 
 // Access database via
-app.use('/db', dbRouter, () => console.log('router ran'));
+app.use('/db', dbRouter);
 
 // Test fetch route
 app.get('/api', (req, res) => {
   return res.status(200).json(['shit', 'fuck', 'dippp']);
 })
-
 
 // Catch-all
 app.use((req, res) => res.status(404).send('This route doesn\'t extist... Try again...'));

@@ -6,14 +6,27 @@ const db = require('../models/pool.js');
 const sqlController = {};
 
 // Add methods to act as my middleware for my router
-sqlController.testGET = () => {
-  console.log('did we make it into test')
+sqlController.testGET = (req, res, next) => {
+  console.log('Running testGET from controller');
   const query = `
-    SELECT * FROM personal_journal;
+    SELECT * FROM past_memories;
   `;
-  db.query(query, undefined, (err, res) => {
-    if (err) return next(err);
-    res.locals.names = res;
+  db.query(query, undefined, (err, list) => {
+    if (err) return next({
+      log: 'The following error occured in testGet' + err});
+    res.locals.names = list.rows;
+    return next();
+  })
+}
+
+sqlController.testPOST = (req, res, next) => {
+  console.log('Running testPOST');
+  const query = `
+    INSERT INTO personal_journal (name) VALUES ('Will Sentence');
+  `;
+  db.query(query, undefined, (err, data) => {
+    if (err) return next({
+      log: 'The following error occured in testPost' + err});
     return next();
   })
 }
