@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import MemoryButton from '../memoryButton.jsx'
-
+import MemoryButton from '../memoryButton.jsx';
+import * as actions from '../../actions/actions.js';
 
 const mapStateToProps = (store) => {
   console.log('Store inside of container', store)
@@ -10,8 +10,12 @@ const mapStateToProps = (store) => {
   }
 }
 
+const mapDispatchToProps = dispatch => ({
+  initialFetch: (initialData) => dispatch(actions.initialLoad(initialData)),
+})
+
 class MemoryContainer extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
   }
 
@@ -20,15 +24,14 @@ class MemoryContainer extends Component {
       .then(res => res.json())
       .then(dbData => {
         console.log('dbData', dbData)
-        dispatchEvent()
-        console.log(initialState)
+        this.props.initialFetch(dbData)
       })
       .catch(err => { log: err });
   }
 
   render() {
     console.log('Memory log', this.props.memories);
-    const memoryArr = this.props.memories.map(el => <li>Memory: {el.name} Date: {el.date}</li>);
+    const memoryArr = this.props.memories.map(el => <p key={el.name}>Memory: {el.name} Date: {el.time}</p>);
     return (
       <div id='main-container'>
         <h1>Your most important reminders...</h1>
@@ -39,4 +42,4 @@ class MemoryContainer extends Component {
   }
 }
 
-export default connect(mapStateToProps, null)(MemoryContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(MemoryContainer);

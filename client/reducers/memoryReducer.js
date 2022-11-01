@@ -14,6 +14,14 @@ const initialState = {
 
 const memoryReducer = (state = initialState, action) => {
   switch (action.type) {
+    case "INITIAL_FETCH": {
+      console.log('Firing fetch!')
+      return {
+        ...state,
+        memoryBank: action.payload
+      }
+      break;
+    }
     default: {
       return state;
     }
