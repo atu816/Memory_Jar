@@ -13,3 +13,21 @@ export const generateMemory = (currentMemory) => (
     payload: currentMemory,
   }
 )
+
+export const updateMemory = (newData) => ({
+  type: types.UPDATE_MEMORY,
+  payload: newData,
+})
+
+export const depositMemory = (newMemory, pastfuture) => ({
+  type: types.DEPOSIT_MEMORY,
+  payload: {
+    newMemory: newMemory,
+    pastfuture: pastfuture
+  }
+})
+
+export const updatePastFuture = (currState) => ({
+  type: types.UPDATE_PAST_FUTURE,
+  payload: currState,
+})

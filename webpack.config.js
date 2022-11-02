@@ -8,15 +8,15 @@ module.exports = {
     filename: 'bundle.js',
   },
   devServer: {
-    static: {
-      publicPath: '/build',
-      directory: path.resolve(__dirname, 'build')
-    },
+    // static: {
+    //   publicPath: '/build',
+    //   directory: path.resolve(__dirname, 'build')
+    // },
     proxy: {
       '/': 'http://localhost:3000'
     },
   },
-  mode: process.env.NODE_ENV,
+  // mode: process.env.NODE_ENV,
   module: {
     rules: [
       {

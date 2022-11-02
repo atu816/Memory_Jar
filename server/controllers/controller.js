@@ -8,30 +8,30 @@ const sqlController = {};
 // Add methods to act as my middleware for my router
 sqlController.pastMemoGET = (req, res, next) => {
   console.log('Running testGET from controller');
-  const query = `
+  const past_query = `
     SELECT * FROM past_memories;
   `;
   // Access our database
-  db.query(query, undefined, (err, list) => {
-    if (err) return next({log: 'The following error occured in testGet' + err});
+  db.query(past_query, undefined, (err, list) => {
+    if (err) return next({ log: 'The following error occured in testGet' + err });
+    console.log('Past memories stored in locals!')
     // Array of past_memories
     res.locals.past_memories = list.rows;
     return next();
   })
+
+  // const future_query = `
+  //   SELECT * FROM future_memories;
+  // `;
+  // db.query(future_query, undefined, (err, list) => {
+  //   if (err) return next({log: 'The following error occured in testGet' + err});
+  //   console.log('Future memories stored in locals!')
+  //   // Array of past_memories
+  //   res.locals.future = list.rows;
+  //   return next();
+  // })
 }
 
-// Modify for better use
-sqlController.testPOST = (req, res, next) => {
-  console.log('Running testPOST');
-  const query = `
-    INSERT INTO personal_journal (name) VALUES ('Will Sentence');
-  `;
-  db.query(query, undefined, (err, data) => {
-    if (err) return next({
-      log: 'The following error occured in testPost' + err});
-    return next();
-  })
-}
 
 sqlController.memoryPUT = (req, res, next) => {
   // Increments counter on our times_called
@@ -43,11 +43,29 @@ sqlController.memoryPUT = (req, res, next) => {
   WHERE id = ${req.body.id};
   `;
   db.query(query, undefined, (err, data) => {
-    if (err) return next({err: 'Error in PUT:', err})
+    if (err) return next({ err: 'Error in PUT:', err })
     console.log('Succesful PUT inside controller', data);
     return next();
   })
+
+
 }
+
+// Modify for better use
+sqlController.futurePOST = (req, res, next) => {
+  const query = `
+    INSERT INTO future_memories (date_idea, date_entered) 
+    VALUES ('${req.body.date_idea}', '${req.body.curr_date}');
+  `;
+  db.query(query, undefined, (err, data) => {
+    if (err) return next({
+      log: 'The following error occured in testPost' + err
+    });
+    return next();
+  })
+}
+// console.log('Running testPOST');
+
 
 // Export back so router can use
 module.exports = sqlController;

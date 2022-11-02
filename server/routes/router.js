@@ -9,14 +9,14 @@ router.get('/past_memories', controller.pastMemoGET, (req, res) => {
 })
 
 // Updating memory to show how many times an event has been seen
-router.put('/', controller.memoryPUT, (req, res) => {
+router.put('/updateFreq', controller.memoryPUT, (req, res) => {
   return res.status(200).json('Succesful PUT')
 })
 
 // Trash. Doesn't exist anymore. Absolute trash.
-router.post('/', controller.testPOST, (req, res) => {
-  console.log('Succesful DB Post');
-  return res.status(200).json('Succesfully posteddddd!')
+router.post('/future', controller.futurePOST, (req, res) => {
+
+  return res.status(200).json('Succesful future POST')
 })
 
 module.exports = router;

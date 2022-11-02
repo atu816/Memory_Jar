@@ -2,6 +2,7 @@
 
 * {
     box-sizing: border-box;
+    font-family: Montserrat;
 }
 
 body:not(#memory-box) {
@@ -12,13 +13,12 @@ body:not(#memory-box) {
 }
 
 button {
-  font-family: Montserrat;
   border: none;
-  margin: 0 15px;
+  margin: 5px 15px;
   padding: 5px 15px;
   width: 200px;
-  box-shadow: 0 1px 5px 1px rgb(171, 171, 171);
-  border-radius: 1px;
+  box-shadow: 0 0px 3px 1px rgb(228, 228, 228);
+  /* border-radius: 1px; */
   transition: 0.05s;
   background-color:rgba(228, 228, 228, 0.642);
 }
@@ -39,6 +39,9 @@ h2 {
 }
 
 #main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     background-color: rgba(245, 245, 245, 0.313);
     border: solid rgba(200, 200, 200, 0.509);
     margin-left: auto;
@@ -48,7 +51,6 @@ h2 {
     text-align: center;
     width: 70%;
     height: 90vh;
-    font-family: Montserrat;
 }
 
 #memory-box {
@@ -57,6 +59,55 @@ h2 {
   margin-left: auto;
   margin-right: auto;
   margin-top: 40px;
+}
+
+#create-box {
+  padding: 10px;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  background-color:rgba(253, 245, 235, 0.62);
+}
+
+.radio-button {
+  border: none;
+  /* accent-color: rgb(252, 204, 142); */
+  /* outline: none; */
+}
+
+
+#memory-text, #memory-submit {
+  height: 25px;
+  border: none;
+  box-shadow: 0 0px 3px 1px rgb(228, 228, 228);
+  padding: 5px 10px;
+}
+
+#memory-text {
+  height: 25px;
+  border: none;
+  box-shadow: 0 0px 3px 1px rgb(228, 228, 228);
+  padding: 5px 10px;
+}
+
+#memory-text:focus {
+  border: 0;
+  outline: 0;
+}
+
+#memory-submit {
+  color:rgb(108, 108, 108);
+}
+
+#memory-submit:hover {
+  cursor: pointer;
+  transition: 0.2s;
+  background-color:rgb(206, 206, 206);
+}
+
+#memory-submit:active {
+  background-color: rgba(201, 201, 201, 0.874);
+  color:rgb(216, 216, 216);
 }
 
 @keyframes appear {
