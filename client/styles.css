@@ -1,20 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap');
+
 * {
-  box-sizing:border-box;
+    box-sizing: border-box;
 }
-body {
-  background-color: skyblue;
-  background: url("assets/drone_shot.jpg") no-repeat center center fixed;
-  background-size: cover;
+
+body:not(#memory-box) {
+    animation: 1s ease-out 0s 1 appear;
+    background-color: skyblue;
+    background: url("assets/drone_shot.jpg") no-repeat center center fixed;
+    background-size: cover;
+}
+
+button {
+  font-family: Montserrat;
+  border: none;
+  margin: 0 15px;
+  padding: 5px 15px;
+  width: 200px;
+  box-shadow: 0 1px 5px 1px rgb(171, 171, 171);
+  border-radius: 1px;
+  transition: 0.05s;
+  background-color:rgba(228, 228, 228, 0.642);
+}
+
+button:hover {
+  cursor: pointer;
+  transition: 0.2s;
+  background-color:rgb(212, 212, 212);
+}
+
+button:active {
+  background-color: rgba(213, 213, 213, 0.717);
+  color:rgb(216, 216, 216);
+}
+
+h2 {
+  font-weight: 900;
 }
 
 #main-container {
-  background-color: rgba(245, 245, 245, 0.313);
-  border: solid rgba(200, 200, 200, 0.509);
+    background-color: rgba(245, 245, 245, 0.313);
+    border: solid rgba(200, 200, 200, 0.509);
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+    text-align: center;
+    width: 70%;
+    height: 90vh;
+    font-family: Montserrat;
+}
+
+#memory-box {
+  width: 70%;
+  height: 60%;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 5vh;
-  margin-bottom: 5vh;
-  text-align: center;
-  width: 70%;
-  height: 90vh;
+  margin-top: 40px;
+}
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+    /* transform: translateX(-100%); */
+  }
+  100% {
+    opacity: 1;
+    /* transform: translateX(0); */
+  }
 }

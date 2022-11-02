@@ -1,3 +1,4 @@
 export const INITIAL_FETCH = "INITIAL_FETCH";
+export const GENERATE_MEMORY = "GENERATE_MEMORY";
+
 export const ADD_MEMORY = "ADD_MEMORY";
-export const VIEW_MEMORY = "VIEW_MEMORY";

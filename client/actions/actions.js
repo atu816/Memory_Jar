@@ -6,3 +6,10 @@ export const initialLoad = (loadData) => (
     payload: loadData
   }
 )
+
+export const generateMemory = (currentMemory) => (
+  {
+    type: types.GENERATE_MEMORY,
+    payload: currentMemory,
+  }
+)

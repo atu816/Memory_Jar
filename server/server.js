@@ -32,6 +32,7 @@ app.use((err, req, res, next) => {
   return res.status(errorObj.status).json(errorObj.message);
 });
 
+// Listening for our port to start and console logging
 app.listen(APP_PORT, () => {
   console.log('Listening on port 3000...')
 });

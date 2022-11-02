@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class MemoryButton extends Component {
   render() {
     return (
-      <button>Generate Memory</button>
+      <button onClick={this.props.generateRandom}>Memories to remember</button>
     )
   }
 }
