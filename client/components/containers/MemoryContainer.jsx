@@ -47,13 +47,15 @@ class MemoryContainer extends Component {
 
   // Fetch data once mounted
   componentDidMount() {
-    fetch('/db')
+    fetch('/db/past_memories')
       .then(res => res.json())
       .then(dbData => {
         console.log('Succesfully mounted!')
         this.props.initialFetch(dbData)
       })
       .catch(err => { log: err });
+
+    // this.props.initialFetch();
   }
 
   // Info on our current state each render

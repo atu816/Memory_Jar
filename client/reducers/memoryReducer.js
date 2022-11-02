@@ -15,6 +15,7 @@ const memoryReducer = (state = initialState, action) => {
     case types.INITIAL_FETCH: {
       console.log('Firing fetch GET!')
       // Fils our memorybank with all the events in past_memories
+      
       return {
         ...state,
         memoryBank: action.payload
@@ -39,7 +40,7 @@ const memoryReducer = (state = initialState, action) => {
       // Issue: State is not updated in the frontend until we refresh the page.
       // Backend is responding well.
       // Check async firing order.
-      fetch('/db')
+      fetch('/db/past_memories')
         .then(res => res.json())
         .then(dbData => {
           // This isn't doing anything right now
