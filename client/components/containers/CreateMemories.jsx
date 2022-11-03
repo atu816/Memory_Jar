@@ -11,6 +11,16 @@ function CreateMemories(props) {
       document.querySelector('#memory-text').value = '';
       document.querySelector('#past-radio').checked = false;
       document.querySelector('#future-radio').checked = false;
+
+      const memoryEvent = document.getElementById('memory-event');
+      const memoryDate = document.getElementById('memory-date');
+      const memoryBox = document.getElementById('memory-box')
+      const stateText = props.currState === 'past' ? 'past memories!' : 'future memories!'
+      memoryEvent.innerText =
+        `Just added...\n${props.newMemory}\n to\n${stateText}`;
+      if (props.newDate) memoryDate.innerText = 'Memory made on ' + props.newDate;
+      
+      memoryBox.lastChild.style.visibility = 'visible';
     }}>
       <span>Add some memories</span>
       <br></br>

@@ -18,7 +18,6 @@ const mapStateToProps = (store) => {
     newMemory: store.memories.newMemory,
     pastfuture: store.memories.pastfuture,
     newDate: store.memories.newDate,
-    // memoryDisplay: store.memories.memoryDisplayed,
     viewPast: store.memories.viewPast,
   }
 }
@@ -45,6 +44,7 @@ class MemoryContainer extends Component {
   // Creates and populates our memory div
   // Passed as click handler 
   rememberMemory = () => {
+    Server.syncDB(this.props.initialFetch)
     // Choose a new memory from the bank
     const memory = this.props.memories;
     let randomMemory = memory[Math.floor(Math.random() * memory.length)];
@@ -108,7 +108,7 @@ class MemoryContainer extends Component {
   }
 
   // Info on our current state each render
-  componentDidUpdate(previousProps, previousState) {
+  componentDidUpdate() {
     console.log('State has been updated', this.props)
   }
 
@@ -120,7 +120,7 @@ class MemoryContainer extends Component {
           <MemoryButton generateRandom={this.rememberMemory} />
           <RandomDateButton generateRandom={this.createDateMemory} />
         </div>
-        <MemoryBox memory={this.props.memories} displayState={this.props.memoryDisplay} />
+        <MemoryBox memory={this.props.memories}/>
         <CreateMemory
           textChange={this.props.updateMemory}
           depositMemory={this.props.depositMemory}

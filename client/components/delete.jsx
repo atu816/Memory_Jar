@@ -12,7 +12,6 @@ const Delete = (props) => {
         document.getElementById('memory-date').innerText = '';
         const memoryBox = document.getElementById('memory-box')
         memoryBox.lastChild.style.visibility = 'hidden';
-        //.removeChild(document.getElementById('#modify-container'))
         Server.syncDB(props.update);
       }
       }

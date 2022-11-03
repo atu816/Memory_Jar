@@ -54,11 +54,20 @@ h2 {
 }
 
 #memory-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 70%;
   height: 60%;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 40px;
+  margin-top: 20px;
+}
+
+
+#memory-event {
+  position: relative;
+  width: 60vw;
 }
 
 #create-box {
