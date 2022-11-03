@@ -1,10 +1,21 @@
 import React, { Component } from 'react';
+import DateInput from '../dateInput.jsx';
 
 function CreateMemories(props) {
   return (<div id='create-box'>
     <form onSubmit={(e) => {
       e.preventDefault();
-      props.depositMemory(props.newMemory, props.currState);
+      props.depositMemory(props.newMemory, props.currState, props.newDate);
+      // Function to resync to DB
+      fetch('/db/past_memories')
+        .then(res => res.json())
+        .then(dbData => {
+          console.log('Succesfully mounted!')
+          console.log('DidMount dbData', dbData)
+          this.props.initialFetch(dbData)
+        })
+        .catch(err => { log: err });
+      //
       document.querySelector('#memory-text').value = '';
       document.querySelector('#past-radio').checked = false;
       document.querySelector('#future-radio').checked = false;
@@ -29,13 +40,14 @@ function CreateMemories(props) {
           props.updatePastFuture('future')
         }}
       ></input></span>
+      {props.currState === 'past' && <DateInput id='date-input' updateDate={props.updateDate} />}
       <br></br>
-      <input required id='memory-text' type='text' onChange={() => {
+      <input required className='submit-line' id='memory-text' type='text' placeholder="What's next?" onChange={() => {
         const textEle = document.querySelector('#memory-text');
         props.textChange(textEle.value);
       }
       }></input>
-      <input id='memory-submit' type='submit' value='Submit'></input>
+      <input className='submit-line' id='memory-submit' type='submit' value='Submit'></input>
     </form>
   </div>)
 }

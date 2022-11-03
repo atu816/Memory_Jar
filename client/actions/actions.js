@@ -19,15 +19,41 @@ export const updateMemory = (newData) => ({
   payload: newData,
 })
 
-export const depositMemory = (newMemory, pastfuture) => ({
+export const depositMemory = (newMemory, pastfuture, newDate) => ({
   type: types.DEPOSIT_MEMORY,
   payload: {
     newMemory: newMemory,
-    pastfuture: pastfuture
+    pastfuture: pastfuture,
+    newDate: newDate
   }
 })
 
 export const updatePastFuture = (currState) => ({
   type: types.UPDATE_PAST_FUTURE,
   payload: currState,
+})
+
+export const updateDate = (date) => ({
+  type: types.UPDATE_DATE,
+  payload: date
+})
+
+export const memoryDisplayed = (date) => ({
+  type: types.MEMORY_DISPLAYED,
+  payload: date
+})
+
+export const viewingPast = (boolean) => ({
+  type: types.VIEWING_PAST,
+  payload: boolean
+})
+
+export const deleteMemory = (memoryData) => ({
+  type: types.DELETE_MEMORY,
+  payload: memoryData
+})
+
+export const editMemory = (memoryData) => ({
+  type: types.EDIT_MEMORY,
+  payload: memoryData
 })

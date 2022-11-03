@@ -19,19 +19,21 @@ sqlController.pastMemoGET = (req, res, next) => {
     res.locals.past_memories = list.rows;
     return next();
   })
-
-  // const future_query = `
-  //   SELECT * FROM future_memories;
-  // `;
-  // db.query(future_query, undefined, (err, list) => {
-  //   if (err) return next({log: 'The following error occured in testGet' + err});
-  //   console.log('Future memories stored in locals!')
-  //   // Array of past_memories
-  //   res.locals.future = list.rows;
-  //   return next();
-  // })
 }
 
+sqlController.futureMemoGet = (req, res, next) => {
+  console.log('Running future memory GET')
+  const future_query = `
+    SELECT * FROM future_memories;
+  `;
+  db.query(future_query, undefined, (err, list) => {
+    if (err) return next({log: 'The following error occured in testGet' + err});
+    console.log('Future memories stored in locals!')
+    // Array of past_memories
+    res.locals.future = list.rows;
+    return next();
+  })
+}
 
 sqlController.memoryPUT = (req, res, next) => {
   // Increments counter on our times_called
@@ -59,13 +61,25 @@ sqlController.futurePOST = (req, res, next) => {
   `;
   db.query(query, undefined, (err, data) => {
     if (err) return next({
-      log: 'The following error occured in testPost' + err
+      log: 'The following error occured in future post' + err
     });
     return next();
   })
 }
-// console.log('Running testPOST');
 
 
+sqlController.pastPOST = (req, res, next) => {
+  const query = `
+    INSERT INTO past_memories (name, time) 
+    VALUES ('${req.body.old_memory}', '${req.body.old_date}');
+  `;
+  console.log(req.body)
+  db.query(query, undefined, (err, data) => {
+    if (err) return next({
+      log: 'The following error occured in past post' + err
+    });
+    return next();
+  })
+}
 // Export back so router can use
 module.exports = sqlController;

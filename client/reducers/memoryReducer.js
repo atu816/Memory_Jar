@@ -10,6 +10,8 @@ const initialState = {
   newMemory: '',
   pastfuture: '',
   newDate: '',
+  memoryDisplayed: null,
+  viewPast: null,
 }
 
 
@@ -17,10 +19,12 @@ const memoryReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.INITIAL_FETCH: {
       console.log('Firing fetch GET!')
+      // console.log('action paylod', action.payload)
       // Fills our memorybank with all the events in past_memories
       return {
         ...state,
-        memoryBank: action.payload
+        memoryBank: action.payload.past_memories,
+        newMemoryBank: action.payload.future,
       }
     }
     case types.GENERATE_MEMORY: {
@@ -89,13 +93,62 @@ const memoryReducer = (state = initialState, action) => {
           .then(res => res.json())
           .then(data => console.log(data));
       } else if (currState === 'past') {
-
+        const date = action.payload.newDate;
+        console.log(memoryIdea, date)
+        fetch('/db/past', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            old_memory: memoryIdea,
+            old_date: date,
+          })
+        })
       }
 
       return {
         ...state,
         newMemory: '',
-        pastfuture: ''
+        pastfuture: '',
+        newDate: ''
+      }
+    }
+    case types.UPDATE_DATE: {
+      console.log('updating date!')
+      console.log(action.payload)
+      const dateArr = action.payload.split('-')
+      if (dateArr[2][0] === '0') dateArr[2] = dateArr[2].slice(1);
+      console.log(dateArr)
+      const newDate = `${months[dateArr[1] - 1]} ${dateArr[2]}, ${dateArr[0]}`;
+      console.log(newDate);
+      return {
+        ...state,
+        newDate
+      };
+    }
+    case types.MEMORY_DISPLAYED: {
+      console.log('Memory is displayed!')
+      return {
+        ...state,
+        memoryDisplayed: true
+      }
+    }
+    case types.VIEWING_PAST: {
+      console.log('Viewing past or future memory currently');
+      return {
+        ...state,
+        viewPast: action.payload
+      }
+    }
+    case types.DELETE_MEMORY: {
+      console.log('Deleting memory!');
+      return {
+        ...state
+      }
+    }
+    case types.EDIT_MEMORY: {
+      console.log('Editing memory!');
+      return {
+        ...state
       }
     }
     // Default initial state
@@ -105,5 +158,6 @@ const memoryReducer = (state = initialState, action) => {
     }
   }
 }
+
 
 export default memoryReducer;

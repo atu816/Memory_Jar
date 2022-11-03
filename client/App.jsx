@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
 import MemoryContainer from './components/containers/MemoryContainer.jsx';
+import {
+  Routes,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 
 class App extends Component {
   constructor(props) {
@@ -9,9 +15,11 @@ class App extends Component {
 
   render() {
     return (
-      <div>
-        <MemoryContainer />
-      </div>
+
+
+          <MemoryContainer />
+
+
     )
   }
 }

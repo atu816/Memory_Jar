@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
+import ModifyContainer from './containers/ModifyContainer.jsx';
 
-class MemoryBox extends Component {
-  render() {
+const MemoryBox = (props) => {
+
     return (
       <div id='memory-box'>
         <h2 id='memory-event'>
         </h2>
         <h4 id='memory-date'>
         </h4>
+        {props.displayState && <ModifyContainer />}
       </div >
     )
-  }
+  
 }
 
 export default MemoryBox;

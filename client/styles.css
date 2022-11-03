@@ -19,7 +19,7 @@ button {
   width: 200px;
   box-shadow: 0 0px 3px 1px rgb(228, 228, 228);
   /* border-radius: 1px; */
-  transition: 0.05s;
+  transition: 0.005s;
   background-color:rgba(228, 228, 228, 0.642);
 }
 
@@ -71,6 +71,10 @@ h2 {
 
 .radio-button {
   border: none;
+  position: relative;
+  top: 2.0px;
+  margin-left: 0;
+  margin-right: 10px;
   /* accent-color: rgb(252, 204, 142); */
   /* outline: none; */
 }
@@ -108,6 +112,37 @@ h2 {
 #memory-submit:active {
   background-color: rgba(201, 201, 201, 0.874);
   color:rgb(216, 216, 216);
+}
+
+.submit-line {
+  margin-top: 5px;
+  
+}
+
+.modify-container {
+
+  display: flex;
+  justify-content: space-around;
+  width: 30%;
+  margin-top: 0;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+#edit, #delete {
+  position: relative;
+  top: -10px;
+  width: 45%;
+  user-select: none;
+  font-size: 14px;
+}
+
+#edit:hover, #delete:hover {
+  cursor: pointer;
+}
+
+#edit:active, #delete:active {
+  color: rgb(52, 52, 52);
 }
 
 @keyframes appear {
