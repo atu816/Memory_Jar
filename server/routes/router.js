@@ -28,4 +28,14 @@ router.post('/past', controller.pastPOST, (req, res) => {
   return res.status(200).json('Succesful past POST')
 })
 
+// Deleting memories
+router.delete('/delete', controller.delete, (req, res) => {
+  return res.status(200).json('Succesful deletion')
+})
+
+// Editing memories
+router.put('/edit', (req, res) => {
+  return res.status(200).json('Succesful edit')
+})
+
 module.exports = router;

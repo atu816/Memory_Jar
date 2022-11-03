@@ -5,6 +5,7 @@ import CreateMemory from './CreateMemories.jsx';
 import MemoryButton from '../memoryButton.jsx';
 import RandomDateButton from '../randomDateButton.jsx';
 import MemoryBox from '../memoryBox.jsx';
+import Server from '../../fetchMethods.js';
 
 import * as actions from '../../actions/actions.js';
 
@@ -17,7 +18,7 @@ const mapStateToProps = (store) => {
     newMemory: store.memories.newMemory,
     pastfuture: store.memories.pastfuture,
     newDate: store.memories.newDate,
-    memoryDisplay: store.memories.memoryDisplayed,
+    // memoryDisplay: store.memories.memoryDisplayed,
     viewPast: store.memories.viewPast,
   }
 }
@@ -26,12 +27,12 @@ const mapStateToProps = (store) => {
 // Method to update and see new state
 const mapDispatchToProps = dispatch => ({
   initialFetch: (initialData) => dispatch(actions.initialLoad(initialData)),
-  generateMemory: (currentMemory) => dispatch(actions.generateMemory(currentMemory)),
+  updateCount: (currentMemory) => dispatch(actions.updateCount(currentMemory)),
   updateMemory: (newMemoryData) => dispatch(actions.updateMemory(newMemoryData)),
   depositMemory: (newMemory, pastfuture, newDate) => dispatch(actions.depositMemory(newMemory, pastfuture, newDate)),
   updatePastFuture: (pastfuture) => dispatch(actions.updatePastFuture(pastfuture)),
   updateDate: (date) => dispatch(actions.updateDate(date)),
-  memoryDisplayed: () => dispatch(actions.memoryDisplayed()),
+  memoryDisplayed: (memory) => dispatch(actions.memoryDisplayed(memory)),
   viewingPast: (boolean) => dispatch(actions.viewingPast(boolean)),
 })
 
@@ -48,28 +49,29 @@ class MemoryContainer extends Component {
     const memory = this.props.memories;
     let randomMemory = memory[Math.floor(Math.random() * memory.length)];
     // Ensure you don't have the same memory as last time
-    while (randomMemory.name === this.props.currMemory) {
-      randomMemory = memory[Math.floor(Math.random() * memory.length)];
-    }
-    // Vanilla DOM to populate our memory div box
     const memoryEvent = document.getElementById('memory-event');
     const memoryDate = document.getElementById('memory-date');
-    memoryEvent.innerText = `Do you remember...\n${randomMemory.name}`;
-    memoryDate.innerText = `Date: ${randomMemory.time} \nTimes Seen: ${randomMemory.times_called} `
-    // Change our state by updating view count on memory
-    this.props.generateMemory(randomMemory);
-    this.props.viewingPast(true);
-    // Update store to know it displays now
-    this.props.memoryDisplayed();
-    // Resync data with new db updates
-    fetch('/db/past_memories')
-      .then(res => res.json())
-      .then(dbData => {
-        console.log('Succesfully mounted!')
-        this.props.initialFetch(dbData)
-      })
-      .catch(err => { log: err });
-    //
+    const memoryBox = document.getElementById('memory-box')
+    if (randomMemory !== undefined) {
+      while (randomMemory.name === this.props.currMemory && this.props.memories.length > 1) {
+        randomMemory = memory[Math.floor(Math.random() * memory.length)];
+      }
+      // Vanilla DOM to populate our memory div box
+
+      memoryEvent.innerText = `Do you remember...\n${randomMemory.name}`;
+      memoryDate.innerText = `Date: ${randomMemory.time} \nTimes Seen: ${randomMemory.times_called} `
+      memoryBox.lastChild.style.visibility = 'visible';
+      // Change our state by updating view count on memory and update DB
+      this.props.updateCount(randomMemory);
+      this.props.viewingPast(true);
+      this.props.memoryDisplayed(randomMemory.name);
+    }
+    else {
+      memoryEvent.innerText = 'Why don\'t you create some?'
+      memoryDate.innerText = ''
+      memoryBox.lastChild.style.visibility = 'hidden';
+    }
+    Server.syncDB(this.props.initialFetch)
   }
 
   // random generator for dates from DB
@@ -78,39 +80,31 @@ class MemoryContainer extends Component {
     const memory = this.props.newMemories;
     let randomMemory = memory[Math.floor(Math.random() * memory.length)];
     // Ensure you don't have the same memory as last time
-    while (randomMemory.name === this.props.currMemory) {
-      randomMemory = memory[Math.floor(Math.random() * memory.length)];
-    }
-    // Vanilla DOM to populate our memory div box
     const memoryEvent = document.getElementById('memory-event');
     const memoryDate = document.getElementById('memory-date');
-    memoryEvent.innerText = `How about...\n${randomMemory.date_idea}`;
-    memoryDate.innerText = `Date entered: ${randomMemory.date_entered}`
-
-    // Update store to know it displays now
-    this.props.memoryDisplayed();
-    this.props.viewingPast(false);
-    // Resync data with new db updates
-    fetch('/db/past_memories')
-      .then(res => res.json())
-      .then(dbData => {
-        console.log('Succesfully mounted!')
-        this.props.initialFetch(dbData)
-      })
-      .catch(err => { log: err });
-    //
+    const memoryBox = document.getElementById('memory-box')
+    if (randomMemory !== undefined) {
+      while (randomMemory.name === this.props.currMemory) {
+        randomMemory = memory[Math.floor(Math.random() * memory.length)];
+      }
+      // Vanilla DOM to populate our memory div box
+      memoryEvent.innerText = `How about...\n${randomMemory.date_idea}`;
+      memoryDate.innerText = `Date entered: ${randomMemory.date_entered}`
+      // Update store to know it displays now then resync store to db
+      memoryBox.lastChild.style.visibility = 'visible';
+      this.props.memoryDisplayed(randomMemory.date_idea);
+      this.props.viewingPast(false);
+    } else {
+      memoryEvent.innerText = 'Why don\'t you create some?'
+      memoryDate.innerText = ''
+      memoryBox.lastChild.style.visibility = 'hidden';
+    }
+    Server.syncDB(this.props.initialFetch)
   }
 
   // Fetch data once mounted
   componentDidMount() {
-    fetch('/db/past_memories')
-      .then(res => res.json())
-      .then(dbData => {
-        console.log('Succesfully mounted!')
-        this.props.initialFetch(dbData)
-      })
-      .catch(err => { log: err });
-
+    Server.syncDB(this.props.initialFetch)
   }
 
   // Info on our current state each render
@@ -126,7 +120,7 @@ class MemoryContainer extends Component {
           <MemoryButton generateRandom={this.rememberMemory} />
           <RandomDateButton generateRandom={this.createDateMemory} />
         </div>
-        <MemoryBox memory={this.props.memories} displayState={this.props.memoryDisplay}/>
+        <MemoryBox memory={this.props.memories} displayState={this.props.memoryDisplay} />
         <CreateMemory
           textChange={this.props.updateMemory}
           depositMemory={this.props.depositMemory}

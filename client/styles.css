@@ -120,7 +120,7 @@ h2 {
 }
 
 .modify-container {
-
+  visibility: hidden;
   display: flex;
   justify-content: space-around;
   width: 30%;

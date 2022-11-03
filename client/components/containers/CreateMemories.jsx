@@ -1,21 +1,13 @@
 import React, { Component } from 'react';
 import DateInput from '../dateInput.jsx';
+import Server from '../../fetchMethods.js';
 
 function CreateMemories(props) {
   return (<div id='create-box'>
     <form onSubmit={(e) => {
       e.preventDefault();
       props.depositMemory(props.newMemory, props.currState, props.newDate);
-      // Function to resync to DB
-      fetch('/db/past_memories')
-        .then(res => res.json())
-        .then(dbData => {
-          console.log('Succesfully mounted!')
-          console.log('DidMount dbData', dbData)
-          this.props.initialFetch(dbData)
-        })
-        .catch(err => { log: err });
-      //
+      Server.syncDB(props.initialFetch)
       document.querySelector('#memory-text').value = '';
       document.querySelector('#past-radio').checked = false;
       document.querySelector('#future-radio').checked = false;
@@ -27,7 +19,6 @@ function CreateMemories(props) {
         id='past-radio' type='radio'
         name='memory'
         onChange={() => {
-          console.log('Past event checked')
           props.updatePastFuture('past')
         }}></input></span>
       <span>Future: <input
@@ -36,7 +27,6 @@ function CreateMemories(props) {
         type='radio'
         name='memory'
         onChange={() => {
-          console.log('Future event checked');
           props.updatePastFuture('future')
         }}
       ></input></span>

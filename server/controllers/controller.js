@@ -7,7 +7,7 @@ const sqlController = {};
 
 // Add methods to act as my middleware for my router
 sqlController.pastMemoGET = (req, res, next) => {
-  console.log('Running testGET from controller');
+  console.log('Running past GET from controller');
   const past_query = `
     SELECT * FROM past_memories;
   `;
@@ -27,7 +27,7 @@ sqlController.futureMemoGet = (req, res, next) => {
     SELECT * FROM future_memories;
   `;
   db.query(future_query, undefined, (err, list) => {
-    if (err) return next({log: 'The following error occured in testGet' + err});
+    if (err) return next({ log: 'The following error occured in testGet' + err });
     console.log('Future memories stored in locals!')
     // Array of past_memories
     res.locals.future = list.rows;
@@ -80,6 +80,25 @@ sqlController.pastPOST = (req, res, next) => {
     });
     return next();
   })
+}
+
+sqlController.delete = (req, res, next) => {
+  console.log(' i am deleting ')
+  const { state, subject } = req.query;
+  console.log(state, subject)
+  console.log(typeof state)
+  const dbTable = state === 'true' ? 'past_memories' : 'future_memories';
+  const memoryLabel = state === 'true' ? 'name' : 'date_idea'
+  const query = `
+      DELETE FROM ${dbTable}
+      WHERE ${memoryLabel} = '${subject}';
+    `;
+  db.query(query, undefined, (err, res) => {
+    if (err) return next({ log: 'Error in deletion ' + err })
+    console.log('Deletion response:', res)
+    return next()
+  })
+
 }
 // Export back so router can use
 module.exports = sqlController;

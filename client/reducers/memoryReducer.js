@@ -1,4 +1,3 @@
-import { bindActionCreators } from 'redux';
 import * as types from '../constants/actionTypes.js';
 
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -28,6 +27,7 @@ const memoryReducer = (state = initialState, action) => {
       }
     }
     case types.GENERATE_MEMORY: {
+      console.log('Upping views!')
       // Updates the times seen an event has appeared
       fetch('/db/updateFreq', {
         method: 'PUT',
@@ -43,20 +43,8 @@ const memoryReducer = (state = initialState, action) => {
         .catch(err => {
           console.log('Error on PUT:', err)
         });
-      // Issue: State is not updated in the frontend until we refresh the page.
-      // Backend is responding well.
-      // Check async firing order.
-      fetch('/db/past_memories')
-        .then(res => res.json())
-        .then(dbData => {
-          // This isn't doing anything right now
-          newMemoryBank = dbData;
-        })
-        .catch(err => { log: err });
-
       return {
         ...state,
-        currMemory: action.payload.name,
       };
     }
     case types.UPDATE_MEMORY: {
@@ -129,7 +117,8 @@ const memoryReducer = (state = initialState, action) => {
       console.log('Memory is displayed!')
       return {
         ...state,
-        memoryDisplayed: true
+        memoryDisplayed: true,
+        currMemory: action.payload
       }
     }
     case types.VIEWING_PAST: {
@@ -141,8 +130,12 @@ const memoryReducer = (state = initialState, action) => {
     }
     case types.DELETE_MEMORY: {
       console.log('Deleting memory!');
+      console.log(action.payload)
       return {
-        ...state
+        ...state,
+        currMemory: '',
+        viewPast: null,
+        memoryDisplayed: false
       }
     }
     case types.EDIT_MEMORY: {

@@ -7,7 +7,7 @@ export const initialLoad = (loadData) => (
   }
 )
 
-export const generateMemory = (currentMemory) => (
+export const updateCount = (currentMemory) => (
   {
     type: types.GENERATE_MEMORY,
     payload: currentMemory,
@@ -38,9 +38,9 @@ export const updateDate = (date) => ({
   payload: date
 })
 
-export const memoryDisplayed = (date) => ({
+export const memoryDisplayed = (memory) => ({
   type: types.MEMORY_DISPLAYED,
-  payload: date
+  payload: memory
 })
 
 export const viewingPast = (boolean) => ({

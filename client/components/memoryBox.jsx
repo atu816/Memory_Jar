@@ -9,7 +9,7 @@ const MemoryBox = (props) => {
         </h2>
         <h4 id='memory-date'>
         </h4>
-        {props.displayState && <ModifyContainer />}
+        <ModifyContainer />
       </div >
     )
   
