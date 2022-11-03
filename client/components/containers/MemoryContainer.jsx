@@ -84,7 +84,9 @@ class MemoryContainer extends Component {
     const memoryDate = document.getElementById('memory-date');
     const memoryBox = document.getElementById('memory-box')
     if (randomMemory !== undefined) {
-      while (randomMemory.name === this.props.currMemory) {
+      console.log('random memory', randomMemory)
+      while (randomMemory.date_idea === this.props.currMemory && this.props.newMemories.length > 1) {
+        console.log('random create')
         randomMemory = memory[Math.floor(Math.random() * memory.length)];
       }
       // Vanilla DOM to populate our memory div box

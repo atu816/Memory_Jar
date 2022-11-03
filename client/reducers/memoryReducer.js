@@ -63,9 +63,10 @@ const memoryReducer = (state = initialState, action) => {
       console.log('Firing deposit memory!')
       const memoryIdea = action.payload.newMemory;
       const currState = action.payload.pastfuture;
-      
+      let viewPastState;
       // Put into future depending on state
       if (currState === 'future') {
+        viewPastState = false;
         console.log('Future POSTING')
         const today = new Date();
         const date = `${months[today.getMonth()]} ${today.getDate()}, ${today.getFullYear()}`;
@@ -80,6 +81,7 @@ const memoryReducer = (state = initialState, action) => {
           .then(res => res.json())
           .then(data => console.log(data));
       } else if (currState === 'past') {
+        viewPastState = true;
         const date = action.payload.newDate;
         fetch('/db/past', {
           method: 'POST',
@@ -95,7 +97,8 @@ const memoryReducer = (state = initialState, action) => {
         newMemory: '',
         pastfuture: '',
         newDate: '',
-        currMemory: memoryIdea
+        currMemory: memoryIdea,
+        viewPast: viewPastState,
       }
     }
     case types.UPDATE_DATE: {
@@ -127,7 +130,7 @@ const memoryReducer = (state = initialState, action) => {
     }
     case types.DELETE_MEMORY: {
       console.log('Deleting memory!');
-      console.log(action.payload)
+      console.log('delete payload', action.payload)
       return {
         ...state,
         currMemory: '',

@@ -86,7 +86,6 @@ sqlController.delete = (req, res, next) => {
   console.log(' i am deleting ')
   const { state, subject } = req.query;
   console.log(state, subject)
-  console.log(typeof state)
   const dbTable = state === 'true' ? 'past_memories' : 'future_memories';
   const memoryLabel = state === 'true' ? 'name' : 'date_idea'
   const query = `

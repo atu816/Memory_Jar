@@ -5,22 +5,25 @@ import Server from '../../fetchMethods.js';
 function CreateMemories(props) {
   return (<div id='create-box'>
     <form onSubmit={(e) => {
+      Server.syncDB(props.initialFetch)
       e.preventDefault();
       props.depositMemory(props.newMemory, props.currState, props.newDate);
-      Server.syncDB(props.initialFetch)
+      console.log('resyncing after depositing memory');
+      
       document.querySelector('#memory-text').value = '';
       document.querySelector('#past-radio').checked = false;
       document.querySelector('#future-radio').checked = false;
-
+      
       const memoryEvent = document.getElementById('memory-event');
       const memoryDate = document.getElementById('memory-date');
       const memoryBox = document.getElementById('memory-box')
       const stateText = props.currState === 'past' ? 'past memories!' : 'future memories!'
       memoryEvent.innerText =
-        `Just added...\n${props.newMemory}\n to\n${stateText}`;
+      `Just added...\n${props.newMemory}\n to\n${stateText}`;
       if (props.newDate) memoryDate.innerText = 'Memory made on ' + props.newDate;
       
       memoryBox.lastChild.style.visibility = 'visible';
+      Server.syncDB(props.initialFetch)
     }}>
       <span>Add some memories</span>
       <br></br>
