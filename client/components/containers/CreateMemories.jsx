@@ -6,6 +6,7 @@ function CreateMemories(props) {
   return (<div id='create-box'>
     <form onSubmit={(e) => {
       Server.syncDB(props.initialFetch)
+      props.editSwap(false);
       e.preventDefault();
       props.depositMemory(props.newMemory, props.currState, props.newDate);
       console.log('resyncing after depositing memory');

@@ -19,6 +19,7 @@ const mapStateToProps = (store) => {
     pastfuture: store.memories.pastfuture,
     newDate: store.memories.newDate,
     viewPast: store.memories.viewPast,
+    editStatus: store.memories.editMode,
   }
 }
 
@@ -33,6 +34,7 @@ const mapDispatchToProps = dispatch => ({
   updateDate: (date) => dispatch(actions.updateDate(date)),
   memoryDisplayed: (memory) => dispatch(actions.memoryDisplayed(memory)),
   viewingPast: (boolean) => dispatch(actions.viewingPast(boolean)),
+  editMode: (boolean) => dispatch(actions.editMode(boolean)),
 })
 
 class MemoryContainer extends Component {
@@ -44,6 +46,7 @@ class MemoryContainer extends Component {
   // Creates and populates our memory div
   // Passed as click handler 
   rememberMemory = () => {
+    this.props.editMode(false)
     Server.syncDB(this.props.initialFetch)
     // Choose a new memory from the bank
     const memory = this.props.memories;
@@ -76,6 +79,8 @@ class MemoryContainer extends Component {
 
   // random generator for dates from DB
   createDateMemory = () => {
+    Server.syncDB(this.props.initialFetch);
+    this.props.editMode(false);
     // Choose a new memory from the bank
     const memory = this.props.newMemories;
     let randomMemory = memory[Math.floor(Math.random() * memory.length)];
@@ -122,7 +127,7 @@ class MemoryContainer extends Component {
           <MemoryButton generateRandom={this.rememberMemory} />
           <RandomDateButton generateRandom={this.createDateMemory} />
         </div>
-        <MemoryBox memory={this.props.memories}/>
+        <MemoryBox memory={this.props.memories} editMode={this.props.editMode}/>
         <CreateMemory
           textChange={this.props.updateMemory}
           depositMemory={this.props.depositMemory}
@@ -132,6 +137,7 @@ class MemoryContainer extends Component {
           newMemory={this.props.newMemory}
           newDate={this.props.newDate}
           initialFetch={this.props.initialFetch}
+          editSwap={this.props.editMode}
         />
       </div>
     );

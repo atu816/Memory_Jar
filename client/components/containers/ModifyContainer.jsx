@@ -14,7 +14,7 @@ const mapStateToProps = (store) => {
 const mapDispatchToProps = dispatch => ({
   initialFetch: (initialData) => dispatch(actions.initialLoad(initialData)),
   deleteMemory: (memoryData) => dispatch(actions.deleteMemory(memoryData)),
-  editMemory: (memoryData) => dispatch(actions.editMemory(memoryData)),
+  editMode: (boolean) => dispatch(actions.editMode(boolean)),
 })
 
 class ModifyContainer extends Component {
@@ -26,7 +26,7 @@ class ModifyContainer extends Component {
     return (
       <div id='modify-container' className='modify-container'>
         <Edit
-          editMemory={this.props.editMemory}
+          editMode={this.props.editMode}
           state={this.props.viewPast}
           memory={this.props.currMemory}
           update={this.props.initialFetch}

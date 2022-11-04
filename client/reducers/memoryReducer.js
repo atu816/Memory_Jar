@@ -10,6 +10,7 @@ const initialState = {
   pastfuture: '',
   newDate: '',
   viewPast: null,
+  editMode: false
 }
 
 
@@ -137,10 +138,13 @@ const memoryReducer = (state = initialState, action) => {
         viewPast: null,
       }
     }
-    case types.EDIT_MEMORY: {
+    case types.EDIT_MODE: {
       console.log('Editing memory!');
+      let swap = action.payload;
+      if (swap === undefined) swap = !state.editMode
       return {
-        ...state
+        ...state,
+        editMode: swap,
       }
     }
     // Default initial state

@@ -4,7 +4,7 @@ const Edit = (props) => {
   return (
     <span
       id='edit'
-      onClick={props.editMemory}
+      onClick={() => props.editMode()}
     >
       edit
     </span>

@@ -53,7 +53,7 @@ export const deleteMemory = (memoryData) => ({
   payload: memoryData
 })
 
-export const editMemory = (memoryData) => ({
-  type: types.EDIT_MEMORY,
-  payload: memoryData
+export const editMode = (boolean) => ({
+  type: types.EDIT_MODE,
+  payload: boolean
 })
