@@ -9,34 +9,34 @@ when considering how a person would naturally store and recall their thoughts. S
 bring them back to you so you can simply just reminisce.
 
 ### Getting Started
-Begin by cloning this repo onto your local device <br>
+Begin by cloning this repo onto your local device. <br>
 - ```git clone https://github.com/atu816/Memory_Jar.git``` <br>
 
-Run the application with the following command
+Run the application with the following command.
 - ```npm run dev```
 
-Open the application in a local browser at ```http://localhost:8080/```
+Open the application in a local browser at ```http://localhost:8080/```.
 
 ### How to Use It
 
 Creating a memory:
-1. Select 'Past' or 'Future'
-2. If 'Past', input a memory name and the date it occurred
-3. If 'Future', input just the memory name
-4. Hit submit
+1. Select 'Past' or 'Future'.
+2. If 'Past', input a memory name and the date it occurred.
+3. If 'Future', input just the memory name.
+4. Hit submit.
 Your memory is now stored.
 
 Recalling a memory:
-1. Select either memories to remember or create
-2. Memories will be displayed at random
-3. (optl) Delete memories you no longer want to see
+1. Select either memories to remember or create.
+2. Memories will be displayed at random.
+3. (optl) Delete memories you no longer want to see.
 
 
 ## Future Additions
 Below are some features to come. 
-- Add user integration
-- View all memories option
-- Implement algorithm to guide which memories are presented
-- Create edit options on stored memories
+- Add user integration.
+- View all memories option.
+- Implement algorithm to guide which memories are presented.
+- Create edit options on stored memories.
 
 If you have any other suggestions or would like to chat, feel free to 📬 [reach out](mailto:alexander.lee.tu@gmail.com) or 👥 [get connected](http://www.linkedin.com/in/atu816) with me.
