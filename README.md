@@ -1,5 +1,5 @@
 # Introducing... Memory Jar 💫
-A minimalist lifestyle application to help users remember memories of the past and the memories to be made.
+A minimalist lifestyle application to help users remember both memories of the past and memories to be made.
 
 ![Remote Image](https://uce3bda903bf1f0333f1a7c9db3d.previews.dropboxusercontent.com/p/thumb/AByxkNuWvqlZZnIU0q3EAdFCdfDbtlwABfsc-aY2aSL6Hs7UVfyUzt2HoxfCbq9CyxiAF3nqmuiHd9TTHfNkryMiWbiovt4AlnSm3Rc4u6kAXYkuWi1DM3Qy-ceirPLDX-i5MzocKxMJsGpzqe8MQxk1v7Ojmxqbu9KWhThrPIrivu4SUJznhFpmFxMEF91JZ8zpuvhOoWQFSw0xEozR8jti7cQL5tW8hIBcA827Ea5GtM3q7lISdHZocEdmOkaPwVAZeoJCedV-k3Eam_GgWLKinV-tZwFO1_DuM3yZbj4kpR8yFWzdBO9KCBmvNztthhLSM_yUvX1YLjutJXsyKWPaDaFBhgUmOwVJ6zZTimjD9MNHP4bRSqp5x5Rnj8twXKR7kTbLunEXJ1ReK5RcmUZa4ZyTYEk0f2zAcaEIKYtLfsrYbVKuHgjJt6Ckw0aCNpGCUES1900G1nHEx9Jo7t1CRnz70FFPKhIifOo6sKbQVQ/p.png)
 
